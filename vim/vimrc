@@ -2,9 +2,8 @@ set nocompatible
 filetype off
 
 " set the runtime path to include Vundle and initialize
-set rtp+=$USERPROFILE\vimfiles\bundle\Vundle.vim\
-let path='$USERPROFILE\vimfiles\bundle'
-call vundle#begin(path)
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
@@ -49,40 +48,8 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-source $VIMRUNTIME/vimrc_example.vim
-source $VIMRUNTIME/mswin.vim
-behave mswin
-
-set diffexpr=MyDiff()
-function MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  let eq = ''
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      let cmd = '""' . $VIMRUNTIME . '\diff"'
-      let eq = '"'
-    else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-    endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-endfunction
 
 " Standard configuration options follow
-" Put foo.bar~ files in vimtmp dir to reduce clutter
-set backupdir=$VIM\vimtmp,.
-set directory=$VIM\vimtmp,.
-
 " Configure indent folding with manual folds
 augroup vimrc
 	au BufReadPre * setlocal foldmethod=indent
@@ -102,15 +69,15 @@ set nu
 set cursorline
 set hlsearch
 set autochdir
-set isfname+=32
 
 " Editor options
 set ai
 set tabstop=4
 set shiftwidth=4
 
+set background=dark
 if has("gui_running")
-    set guifont=Consolas:h11:cANSI
+	set guifont=DejaVu\ Sans\ Mono\ 11
 	set background=light
 	colorscheme solarized
 endif
