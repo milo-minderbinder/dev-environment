@@ -1,0 +1,116 @@
+set nocompatible
+filetype off
+
+" set the runtime path to include Vundle and initialize
+set rtp+=$USERPROFILE\vimfiles\bundle\Vundle.vim\
+let path='$USERPROFILE\vimfiles\bundle'
+call vundle#begin(path)
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'Python-mode-klen'
+" Python-mode-klen options
+let g:pymode_doc = 1
+let g:pymode_doc_bind = 'K'
+let g:pymode_rope = 0
+let g:pymode_lint = 1
+let g:pymode_lint_checkers = ['pep8', 'pyflakes']
+let g:pymode_lint_on_write = 0
+let g:pymode_lint_message = 1
+let g:pymode_virtualenv = 1
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_bind = '<leader>b'
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+let g:pymode_folding = 0
+
+Plugin 'The-NERD-tree'
+" The-NERD-tree options
+map <C-N> :NERDTreeToggle<CR>
+
+Plugin 'altercation/vim-colors-solarized'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList          - list configured plugins
+" :PluginInstall(!)    - install (update) plugins
+" :PluginSearch(!) foo - search (or refresh cache first) for foo
+" :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
+
+" Standard configuration options follow
+" Put foo.bar~ files in vimtmp dir to reduce clutter
+set backupdir=$VIM\vimtmp,.
+set directory=$VIM\vimtmp,.
+
+" Configure indent folding with manual folds
+augroup vimrc
+	au BufReadPre * setlocal foldmethod=indent
+	au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+augroup END
+
+" Custom filetype associations
+au BufNewFile,BufRead *.ftl set syntax=jsp
+
+" Custom mappings
+vnorem // y/<c-r>"<cr>
+
+" UI Options
+syntax on
+
+set nu
+set cursorline
+set hlsearch
+set autochdir
+set isfname+=32
+
+" Editor options
+set ai
+set tabstop=4
+set shiftwidth=4
+
+if has("gui_running")
+    set guifont=Consolas:h11:cANSI
+	set background=light
+	colorscheme solarized
+endif
