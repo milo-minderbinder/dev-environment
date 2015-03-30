@@ -59,6 +59,7 @@ augroup END
 
 " Custom filetype associations
 au BufNewFile,BufRead *.ftl set syntax=jsp
+au BufNewFile,BufRead *.gradle set syntax=groovy
 
 " Custom mappings
 vnorem // y/<c-r>"<cr>
