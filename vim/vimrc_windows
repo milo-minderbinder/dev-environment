@@ -94,8 +94,14 @@ augroup END
 au BufNewFile,BufRead *.ftl set syntax=jsp
 au BufNewFile,BufRead *.gradle set syntax=groovy
 
+" Custom commands
+command ConvertCygwinPath :%s/^\(\s*\)\\cygdrive\\\([A-Za-z]\)\\/\1\u\2:\\\\/g
 " Custom mappings
 vnorem // y/<c-r>"<cr>
+" Map <Alt-o> to <C-w>F -> Opens file under cursor to line:
+nnorem ï F
+" Map <Alt-O> to <C-w>gF -> Opens file under curstor to line in a new tab:
+nnorem Ï gF
 
 " UI Options
 syntax on
