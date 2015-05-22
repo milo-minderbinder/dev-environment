@@ -4,6 +4,9 @@
  * with a Gradle project, just call gradle with the '-I' switch and 
  * provide the full path to this script.
  */
+
+ext.dependencyCheckBin = 'C:\\\\tools\\dependency-check\\bin\\dependency-check.bat'
+
 allprojects {
 	/* Define Java project tasks & configs */
 	plugins.withType(JavaPlugin) {
@@ -26,6 +29,16 @@ allprojects {
 				}
 			}
 		}
+
+		task dependencyCheck(dependsOn: 'exportDeps', type: Exec) {
+			commandLine "${dependencyCheckBin}", \
+			'-a', "${project.name}", \
+			'-f', 'ALL', \
+			'-n', \
+			'-o', "${project.buildDir}/exported-dependencies", \
+			'-s', "${project.projectDir}"
+		}
+
 		test {
 		  testLogging {
 			// Show that tests are run in the command-line output
