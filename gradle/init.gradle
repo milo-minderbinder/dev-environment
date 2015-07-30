@@ -54,4 +54,12 @@ allprojects {
 			}
 		}
 	}
+	plugins.withType(IdeaPlugin) {
+		idea {
+			pathVariables 'GRADLE_HOME': file('/mnt/.gradle'), 'M2_REPO': file('/mnt/.m2/repository')
+			module {
+				downloadJavadoc = true
+			}
+		}
+	}
 }
