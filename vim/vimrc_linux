@@ -14,7 +14,8 @@ Plugin 'Python-mode-klen'
 " Python-mode-klen options
 let g:pymode_doc = 1
 let g:pymode_doc_bind = 'K'
-let g:pymode_rope = 0
+let g:pymode_rope = 1
+let g:pymode_rope_complete_on_dot = 1
 let g:pymode_lint = 1
 map <C-K> :PymodeLint<CR>
 let g:pymode_lint_checkers = ['pep8', 'pyflakes']
@@ -63,6 +64,10 @@ au BufNewFile,BufRead *.gradle set syntax=groovy
 
 " Custom mappings
 vnorem // y/<c-r>"<cr>
+" Map <Alt-o> to <C-w>F -> Opens file under cursor to line:
+nnorem ï F
+" Map <Alt-O> to <C-w>gF -> Opens file under curstor to line in a new tab:
+nnorem Ï gF
 
 " UI Options
 syntax on

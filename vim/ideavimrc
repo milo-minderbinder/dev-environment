@@ -1,0 +1,3 @@
+vnorem // y/<c-r>"<cr>
+
+set hlsearch
